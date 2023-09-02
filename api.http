@@ -1,0 +1,88 @@
+# AdonisJS API routes
+
+@baseUrl = http://localhost:3333
+
+# @name home
+GET {{baseUrl}}/ HTTP/1.1
+
+###
+
+# @name Health
+GET {{baseUrl}}/health HTTP/1.1
+
+
+### API Auth
+
+# @name login
+POST {{baseUrl}}/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "hello@msar.me",
+    "password": "123456"
+}
+
+###
+@authToken = {{login.response.body.token}}
+
+# @name Logout
+POST {{baseUrl}}/logout?revoke_all=true HTTP/1.1
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name getProfile
+GET {{baseUrl}}/me HTTP/1.1
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name getProfileTokens
+GET {{baseUrl}}/me/tokens HTTP/1.1
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name GetUsers
+GET {{baseUrl}}/users HTTP/1.1
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name GetUser
+GET {{baseUrl}}/users/1 HTTP/1.1
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name CreateUser
+POST {{baseUrl}}/users HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "name": "Saiful Alam",
+    "email": "hellos@msar.me",
+    "password": "123456",
+    "password_confirmation": "123456s"
+}
+
+###
+
+# @name UpdateUser
+PUT {{baseUrl}}/users/11 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "name": "Saiful Alam Rakib",
+    "email": "hello@msar.me",
+    "password": "123456",
+    "password_confirmation": "123456"
+}
+
+###
+
+# @name DeleteUser
+DELETE {{baseUrl}}/users/1 HTTP/1.1
+Authorization: Bearer {{authToken}}
